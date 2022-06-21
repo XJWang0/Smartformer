@@ -171,6 +171,9 @@ class CP_DEformer(nn.Module):
 
         return preds
 
+
+
+# =================================================================================
 class Encoder_(nn.Module):
     def __init__(self, d_model, nhead, dim_feedforward, dropout, norm:Optional=None):
         super(Encoder_, self).__init__()

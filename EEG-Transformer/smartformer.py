@@ -291,7 +291,7 @@ class Trans():
         self.b2 = 0.9
         self.nSub = nsub
         self.start_epoch = 0
-        self.root = r'../data/result/'  # the path of data
+        self.root = r'./data/result/'  # the path of data
 
         self.pretrain = False
 
@@ -423,6 +423,7 @@ class Trans():
                 tok, outputs = self.model(img)
                 loss = self.criterion_cls(outputs, label)
 
+                # compute layer importance
                 for block in self.model.module.TransformerEncoder:
                     grad = torch.autograd.grad(loss, block.attn_res.fn[1].parameters(), retain_graph=True)
                     tuples = zip(grad, block.attn_res.fn[1].parameters())
@@ -470,7 +471,7 @@ class Trans():
         return bestAcc, averAcc, Y_true, Y_pred, Score
 
 
-
+# action to decompose
 def change_cpcores(model, action, reward, r_lim):
     rank0 = model.W_Q0.shape[1]
     rank = action + r_lim
@@ -556,9 +557,8 @@ def step(model, encoder, action, last_averAcc, min_index, r_lim):
     next_info, _ = encoder(token)
     bestAcc, averAcc, Y_true, Y_pred, Score = model.train()
     next_state = next_info[0][min_index]
-    # train_acc = train_accs[-1]
-    # acc = accs[-1]
-    if last_averAcc - averAcc <= 0.1:
+
+    if last_averAcc - averAcc <= 0.1: # the threshold for Acc
         reward += averAcc / last_averAcc
     else:
         reward += - last_averAcc / averAcc
@@ -594,7 +594,7 @@ def main():
         score_mask = torch.tensor([0.]*3, device=DEVICE)
         done_mask = torch.tensor([1.]*3, device=DEVICE)
         state = arch_info[0][min_index]
-        ac = AC(state, 5)
+        ac = AC(state, 6)
         r_lim = 1    # the smallest R
         action_list = []
         rank_list = []
@@ -615,7 +615,7 @@ def main():
                     # r_lim = rank_list[-1]
                     # ac.change_out(r_lim-1)
                     result_write.write(
-                    '第{}层的R为：{} 。收敛的动作为：{}'.format(min_index + 1,rank_list,action_list) + '\n')
+                    'The{}layer R is ：{} 。Action is ：{}'.format(min_index + 1,rank_list,action_list) + '\n')
                     score_mask[min_index] = 1
                     score = Score.masked_fill(score_mask == 1, float('inf'))
                     min_index = torch.argmin(score).item()

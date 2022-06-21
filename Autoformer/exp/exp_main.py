@@ -1,6 +1,6 @@
 from ..data_provider.data_factory import data_provider
 from exp_basic import Exp_Basic
-from ..models import Informer, Autoformer, Transformer, CP_Autoformer, Reformer
+from ..models import Informer, Autoformer, Transformer, Smart_Autoformer, Reformer
 from ..utils.tools import EarlyStopping, adjust_learning_rate, visual
 from ..utils.metrics import metric
 
@@ -366,7 +366,7 @@ class CP_Exp_Main(Exp_Basic):
             'Transformer': Transformer,
             'Informer': Informer,
             'Reformer': Reformer,
-            'CP_Autoformer': CP_Autoformer,
+            'CP_Autoformer': Smart_Autoformer,
         }
         model = model_dict[self.args.model].Model(self.args).float()
 

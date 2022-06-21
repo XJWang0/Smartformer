@@ -5,12 +5,12 @@ import seaborn as sns
 import torch
 import yaml
 
-from binarized_notmnist_dataset import NotMNISTDataset
+# from binarized_notmnist_dataset import NotMNISTDataset
 from PIL import Image
 from settings import *
 from torch import nn
 from torch.utils.data import DataLoader
-from cp_mnist import init_datasets# , init_model
+from Smartformer import init_datasets# , init_model
 from deformer import CP_DEformer_, DEformer, DEformer_
 
 def init_model(opts, train_dataset):
@@ -24,7 +24,7 @@ def init_model(opts, train_dataset):
 
 def get_multi_order_nlls():
     JOB = "2"
-    EXPERIMENTS_DIR = 'D:/ftp/Wxj/Subject/deformer/Deformer_experiments'
+    EXPERIMENTS_DIR = './Deformer_experiments'
     JOB_DIR = f"{EXPERIMENTS_DIR}/{JOB}"
     opts = yaml.safe_load(open(f"{JOB_DIR}/{JOB}.yaml"))
 
@@ -68,7 +68,7 @@ def get_multi_order_nlls():
     plt.xlabel("NLL")
     plt.tight_layout()
     # fg.fig.savefig("D:/ftp/Wxj/Subject/deformer/Deformer_experiments/deformer_test_nlls_hist.png")
-    fg.fig.savefig("D:/ftp/Wxj/Subject/deformer/Deformer_experiments/deformer_test_nlls_hist2.png")
+    fg.fig.savefig("./Deformer_experiments/deformer_test_nlls_hist2.png")
 
 
 if __name__ == "__main__":
