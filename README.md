@@ -18,7 +18,7 @@ This package contains the implementation of Actor-Critic, Encoder-Net, Multi-Hea
 
 ## Usage
 
-We have set up 3 experiments, namely EEG-Transformer, Autoformer and DEformer. First, you need to set cp_ trans copy to the project you want to run. Then, you can train by running the following commands. For EEG-Transformer, you can get the data and label from [here](), then run ```getData.m``` using matlab to process. Please refer to our [paper](https://www.researchsquare.com/article/rs-1780688/v1) for the experiment results. You can view relevant project files for more parameter settings.
+We have set up 3 experiments, namely EEG-Transformer, Autoformer and DEformer. First, you need to set cp_ trans copy to the project you want to run. Then, you can train by running the following commands. For EEG-Transformer, you can get the data and label from [here](http://www.bbci.de/competition/iv/), then run ```getData.m``` using matlab to process. Please refer to our [paper](https://www.researchsquare.com/article/rs-1780688/v1) for the experiment results. You can view relevant project files for more parameter settings.
 
 ```python
 # EEG-Transformer
